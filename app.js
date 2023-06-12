@@ -1,10 +1,14 @@
 //jshint esversion:6
+require("dotenv").config(); // to create dotenv to keeo secrets safe
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
+const encrypt = require('mongoose-encryption');
 
 const app = express();
+
+console.log(process.env.API_KEY);
 
 app.use(express.static("public"));
 app.set("view engine", "ejs");
@@ -12,10 +16,15 @@ app.use(bodyParser.urlencoded({extended : true }));
 
 mongoose.connect("mongodb://localhost:27017/userDB", {useNewUrlParser: true });
 
-const userSchema = {
+// an object created from mongoose schema class
+const userSchema = new mongoose.Schema ({
     email : String,
     password : String
-};
+});
+
+
+// only encrypt the password field
+userSchema.plugin(encrypt, { secret:process.env.SECRET, encryptedFields: ["password"] }); // a plugin can add additional fields, methods, middleware, or other behavior to the schema. 
 
 const User = new mongoose.model("User", userSchema);
 
@@ -61,7 +70,7 @@ app.post("/login", async function(req, res) {
       } else {
         res.status(404).send("User not found");
       }
-    } catch (err) {
+    } catch (err) { 
       console.log(err);
       res.status(500).send("Internal Server Error");
     }
