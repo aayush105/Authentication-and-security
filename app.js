@@ -82,9 +82,15 @@ app.get("/secrets", function(req,res){
   }
 });
 
-app.get("/logout", function(req, res){
-  req.logout();
-  res.redirect("/");
+app.get('/logout', function(req, res) {
+  req.logout(function(err) {
+    if (err) {
+      // Handle error
+      return res.status(500).send('An error occurred');
+    }
+    // Redirect or respond with a success message
+    res.redirect('/');
+  });
 });
 
 app.post("/register", async function(req, res){
