@@ -1,0 +1,27 @@
+OAuth -> Open Authorisation
+ 	a) Granular Access levels
+ 	-> what kind of data request the app wants, that datas will only be requested to any other application during login. Eg: if we login through Facebook in our application then we can set what data of the user's facebook account we want to get like Name and gmail.
+ 	
+ 	b) Read/Read +  Write Access
+ 	 -> we can read the user's details like name, gmail, address etc thorugh facebook login or we 
+ 	 can ask for the write action.
+ 	 
+ 	c) Revoke Access
+ 	-> thrid party that we are using to authenticate should able to revoke at any point on their website. 
+ 	
+how does it work?
+
+1) set up Your App
+2) Redirect to authenticate
+3) User logs In
+4) user grant permission
+5) receive authorisation code
+6) exchange AuthCode for Access token
+
+
+Steps for sign in with google 
+1) Go to passpostjs website 
+2) then go to the strategy and look for the google auth 20
+3) then go to the OAuth consent screen and setup that setting
+4) then go to the credentials and create it for OAuth client ID and fill all the necessary filed then hit save
+5) then 
